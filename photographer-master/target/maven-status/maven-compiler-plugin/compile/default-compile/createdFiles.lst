@@ -1,8 +1,0 @@
-com\fotos\photographer\master\service\business\PhotoGMasterBusiness.class
-com\fotos\photographer\master\service\config\PhotoGMasterConfig.class
-com\fotos\photographer\master\service\controller\PhotoGMasterController.class
-com\fotos\photographer\master\service\model\PhotographerMaster.class
-com\fotos\photographer\master\service\PhotographerMasterApplication.class
-com\fotos\photographer\master\service\advice\PhotoGMasterAdvice.class
-com\fotos\photographer\master\service\repository\PhotoGMasterRepository.class
-com\fotos\photographer\master\service\exception\PhotoGMasterBusinessException.class
