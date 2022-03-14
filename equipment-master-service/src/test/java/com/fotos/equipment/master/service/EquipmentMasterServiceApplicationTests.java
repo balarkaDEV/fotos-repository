@@ -47,10 +47,10 @@ class EquipmentMasterServiceApplicationTests {
 		when(equipmentMasterRepository.findById(id)).thenReturn(
 				Optional.of(new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date(),1)));
 
-		assertThat(equipmentMasterBusiness.findById((long)1).get().getName()).isEqualTo("Nikon D800");
-		assertThat(equipmentMasterBusiness.findById((long)1).get().getType()).isEqualTo("Camera");
-		assertThat(equipmentMasterBusiness.findById((long)1).get().getMake()).isEqualTo("Nikon");
-		assertThat(equipmentMasterBusiness.findById((long)1).get().getPhotographerId()).isEqualTo(1);
+		assertThat(equipmentMasterBusiness.findById((long)1).getName()).isEqualTo("Nikon D800");
+		assertThat(equipmentMasterBusiness.findById((long)1).getType()).isEqualTo("Camera");
+		assertThat(equipmentMasterBusiness.findById((long)1).getMake()).isEqualTo("Nikon");
+		assertThat(equipmentMasterBusiness.findById((long)1).getPhotographerId()).isEqualTo(1);
 	}
 
 	@Test
@@ -61,6 +61,6 @@ class EquipmentMasterServiceApplicationTests {
 				new EquipmentMaster(2,"Nikon D750","Camera","Nikon",new Date(),1)
 		).collect(Collectors.toList()));
 
-		assertThat(equipmentMasterBusiness.findAll().size()).isEqualTo(2);
+		assertThat(equipmentMasterBusiness.findByPhotographerId(1).size()).isEqualTo(2);
 	}
 }

@@ -27,38 +27,24 @@ public class EquipmentMasterController {
     @GetMapping(value="/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EquipmentMaster>> getAllItem(){
         LOGGER.info("getAllItem started");
-        List<EquipmentMaster> list = equipmentMasterBusiness.findAll();
-
-        if (list.size() == 0)
-            throw new EquipmentMasterBusinessException("No Records Found");
-
-        LOGGER.info("getAllItem ended");
-        return new ResponseEntity<List<EquipmentMaster>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<EquipmentMaster>>(equipmentMasterBusiness.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<EquipmentMaster> getItemById(@PathVariable long id){
+    public ResponseEntity<EquipmentMaster> getItemById(@PathVariable long id){
         LOGGER.info("getItemById started");
-        return equipmentMasterBusiness.findById(id);
+        return new ResponseEntity<EquipmentMaster>(equipmentMasterBusiness.findById(id), HttpStatus.OK);
     }
 
     @GetMapping(value="/photographer",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EquipmentMaster>> getItemByPhotoGId(@RequestParam long photogId){
         LOGGER.info("getItemByPhotoGId started");
-        List<EquipmentMaster> list = equipmentMasterBusiness.findByPhotographerId(photogId);
-
-        if (list.size() == 0)
-            throw new EquipmentMasterBusinessException("No Records Found");
-
-        LOGGER.info("getItemByPhotoGId ended");
-        return new ResponseEntity<List<EquipmentMaster>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<EquipmentMaster>>(equipmentMasterBusiness.findByPhotographerId(photogId), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EquipmentMaster> saveItem(@RequestBody final EquipmentMaster equipmentMaster){
         LOGGER.info("saveItem started");
-        EquipmentMaster response = equipmentMasterBusiness.save(equipmentMaster);
-        LOGGER.info("saveItem ended");
-        return new ResponseEntity<EquipmentMaster>(response, HttpStatus.OK);
+        return new ResponseEntity<EquipmentMaster>(equipmentMasterBusiness.save(equipmentMaster), HttpStatus.OK);
     }
 }

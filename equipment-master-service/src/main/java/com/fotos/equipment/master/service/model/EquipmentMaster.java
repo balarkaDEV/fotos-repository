@@ -12,8 +12,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
 @AllArgsConstructor
+@Entity
 @Table(name = "equipment_master")
 public class EquipmentMaster implements Serializable {
 

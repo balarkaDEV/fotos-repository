@@ -14,7 +14,11 @@ public class EquipmentMasterAdvice {
 
     @ExceptionHandler(EquipmentMasterBusinessException.class)
     public ResponseEntity<String> handleBusinessException(EquipmentMasterBusinessException exception){
-        return new ResponseEntity<String>(exception.getErrorMessage(), HttpStatus.NOT_FOUND);
+        if(exception.getErrorMessage() != null)
+            return new ResponseEntity<String>(exception.getErrorMessage(), HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<String>("Record not found", HttpStatus.NOT_FOUND);
+
     }
 
     @ExceptionHandler(Exception.class)

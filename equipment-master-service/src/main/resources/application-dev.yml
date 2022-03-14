@@ -21,7 +21,7 @@ logging:
   level:
     com:
       fotos:
-        photographer:
+        equipment:
           master:
             service: DEBUG
     org:
