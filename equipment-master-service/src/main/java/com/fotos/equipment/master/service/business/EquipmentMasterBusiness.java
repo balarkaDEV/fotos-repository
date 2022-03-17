@@ -2,12 +2,14 @@ package com.fotos.equipment.master.service.business;
 
 import com.fotos.equipment.master.service.exception.EquipmentMasterBusinessException;
 import com.fotos.equipment.master.service.model.EquipmentMaster;
+import com.fotos.equipment.master.service.model.EquipmentMasterRequest;
 import com.fotos.equipment.master.service.repository.EquipmentMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,5 +33,10 @@ public class EquipmentMasterBusiness {
     public EquipmentMaster save(EquipmentMaster equipmentMaster){
         equipmentMaster.setEntryDate(new Date());
         return equipmentMasterRepository.save(equipmentMaster);
+    }
+
+    public EquipmentMaster saveWithPhotographerInfo(EquipmentMasterRequest equipmentMasterRequest) {
+
+        return new EquipmentMaster();
     }
 }

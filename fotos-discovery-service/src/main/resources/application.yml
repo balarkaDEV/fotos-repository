@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: fotos-discovery-service
+
+server:
+  port: 8761
+
+logging:
+  level:
+    com:
+      fotos:
+        discovery:
+          service: DEBUG
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

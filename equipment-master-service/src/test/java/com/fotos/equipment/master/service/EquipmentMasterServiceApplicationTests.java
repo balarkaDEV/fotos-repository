@@ -2,6 +2,8 @@ package com.fotos.equipment.master.service;
 
 import com.fotos.equipment.master.service.business.EquipmentMasterBusiness;
 import com.fotos.equipment.master.service.model.EquipmentMaster;
+import com.fotos.equipment.master.service.model.EquipmentMasterRequest;
+import com.fotos.equipment.master.service.model.PhotographerMaster;
 import com.fotos.equipment.master.service.repository.EquipmentMasterRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,25 @@ class EquipmentMasterServiceApplicationTests {
 		).collect(Collectors.toList()));
 
 		assertThat(equipmentMasterBusiness.findByPhotographerId(1).size()).isEqualTo(2);
+	}
+
+	@Test
+	void testSaveWithPhotographerInfo(){
+		PhotographerMaster photographerMaster = new PhotographerMaster();
+		photographerMaster.setId(1);
+
+		EquipmentMaster equipmentMaster = new EquipmentMaster();
+		equipmentMaster.setPhotographerId(photographerMaster.getId());
+		equipmentMaster.setName("Nikon D800");
+		equipmentMaster.setType("Camera");
+		equipmentMaster.setMake("Nikon");
+		equipmentMaster.setId(1);
+
+		EquipmentMasterRequest equipmentMasterRequest = new EquipmentMasterRequest();
+		equipmentMasterRequest.setEquipmentMaster(equipmentMaster);
+		equipmentMasterRequest.setPhotographerMaster(photographerMaster);
+
+		when(equipmentMasterRepository.save(equipmentMaster)).thenReturn(equipmentMaster);
+		assertThat(equipmentMasterBusiness.saveWithPhotographerInfo(equipmentMasterRequest).getName()).isEqualTo("Nikon D800");
 	}
 }
