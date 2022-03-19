@@ -3,6 +3,7 @@ package com.fotos.equipment.master.service.controller;
 import com.fotos.equipment.master.service.business.EquipmentMasterBusiness;
 import com.fotos.equipment.master.service.exception.EquipmentMasterBusinessException;
 import com.fotos.equipment.master.service.model.EquipmentMaster;
+import com.fotos.equipment.master.service.util.EquipmentMasterValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

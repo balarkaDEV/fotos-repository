@@ -3,8 +3,6 @@ spring:
     active: dev
   application:
     name: photographer-master-service
-  zipkin:
-    base-url: http://localhost:9411/
 
 root:
   service:
@@ -18,4 +16,3 @@ root:
     license: Public API Lincense
     baseurl: /service/fotos
     moduleurl: ${root.service.baseurl}/${root.service.version}/photographer
-

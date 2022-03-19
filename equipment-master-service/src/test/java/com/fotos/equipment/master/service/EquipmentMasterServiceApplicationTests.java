@@ -65,24 +65,4 @@ class EquipmentMasterServiceApplicationTests {
 
 		assertThat(equipmentMasterBusiness.findByPhotographerId(1).size()).isEqualTo(2);
 	}
-
-	@Test
-	void testSaveWithPhotographerInfo(){
-		PhotographerMaster photographerMaster = new PhotographerMaster();
-		photographerMaster.setId(1);
-
-		EquipmentMaster equipmentMaster = new EquipmentMaster();
-		equipmentMaster.setPhotographerId(photographerMaster.getId());
-		equipmentMaster.setName("Nikon D800");
-		equipmentMaster.setType("Camera");
-		equipmentMaster.setMake("Nikon");
-		equipmentMaster.setId(1);
-
-		EquipmentMasterRequest equipmentMasterRequest = new EquipmentMasterRequest();
-		equipmentMasterRequest.setEquipmentMaster(equipmentMaster);
-		equipmentMasterRequest.setPhotographerMaster(photographerMaster);
-
-		when(equipmentMasterRepository.save(equipmentMaster)).thenReturn(equipmentMaster);
-		assertThat(equipmentMasterBusiness.saveWithPhotographerInfo(equipmentMasterRequest).getName()).isEqualTo("Nikon D800");
-	}
 }
