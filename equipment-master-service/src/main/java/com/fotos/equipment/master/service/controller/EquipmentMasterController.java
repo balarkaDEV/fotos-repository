@@ -48,4 +48,11 @@ public class EquipmentMasterController {
         LOGGER.info("saveItem started");
         return new ResponseEntity<EquipmentMaster>(equipmentMasterBusiness.save(equipmentMaster), HttpStatus.OK);
     }
+
+    @DeleteMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EquipmentMaster> delete(@PathVariable long id){
+        equipmentMasterBusiness.deleteById(id);
+        return new ResponseEntity<EquipmentMaster>(HttpStatus.OK);
+    }
+
 }

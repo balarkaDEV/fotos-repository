@@ -69,10 +69,16 @@ public class PhotoGMasterController {
     }*/
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PhotographerMaster> saveItem(@RequestBody final PhotographerMaster photographerMaster){
+    public ResponseEntity<PhotographerMaster> save(@RequestBody final PhotographerMaster photographerMaster){
         LOGGER.info("saveItem started");
         PhotographerMaster response = photoGMasterBusiness.save(photographerMaster);
         LOGGER.info("saveItem ended");
         return new ResponseEntity<PhotographerMaster>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PhotographerMaster> delete(@PathVariable long id){
+        photoGMasterBusiness.deleteById(id);
+        return new ResponseEntity<PhotographerMaster>(HttpStatus.OK);
     }
 }

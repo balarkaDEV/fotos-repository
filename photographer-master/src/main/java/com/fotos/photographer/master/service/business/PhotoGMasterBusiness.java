@@ -40,6 +40,10 @@ public class PhotoGMasterBusiness {
             return photoGMasterRepository.findByCity(queryParams.get("city"));
     }
 
+    public void deleteById(long id){
+        photoGMasterRepository.deleteById(id);
+    }
+
     /*public List<PhotographerMaster> findRecordsByNameAndCity(String name, String city){
         return photoGMasterRepository.findByNameAndCity(name,city);
     }

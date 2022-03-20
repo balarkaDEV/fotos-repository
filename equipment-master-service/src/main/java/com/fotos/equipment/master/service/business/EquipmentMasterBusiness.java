@@ -37,6 +37,10 @@ public class EquipmentMasterBusiness {
         return equipmentMasterRepository.save(equipmentMaster);
     }
 
+    public void deleteById(long id){
+        equipmentMasterRepository.deleteById(id);
+    }
+
     /*public EquipmentMaster saveWithPhotographerInfo(EquipmentMasterRequest equipmentMasterRequest) {
 
         return new EquipmentMaster();

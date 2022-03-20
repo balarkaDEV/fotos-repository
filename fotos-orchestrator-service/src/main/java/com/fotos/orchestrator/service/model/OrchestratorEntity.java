@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrchestratorEntity implements Serializable {
-    private EquipmentMaster equipmentMaster;
+    private List<EquipmentMaster> equipmentMasters;
     private PhotographerMaster photographerMaster;
 }

@@ -23,3 +23,9 @@ eureka:
     fetch-registry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    statusPageUrlPath: /info
+    healthCheckUrlPath: /health
