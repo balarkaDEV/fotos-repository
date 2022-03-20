@@ -54,5 +54,4 @@ public class EquipmentMasterController {
         equipmentMasterBusiness.deleteById(id);
         return new ResponseEntity<EquipmentMaster>(HttpStatus.OK);
     }
-
 }

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableDiscoveryClient
 public class EquipmentMasterServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EquipmentMasterServiceApplication.class, args);
