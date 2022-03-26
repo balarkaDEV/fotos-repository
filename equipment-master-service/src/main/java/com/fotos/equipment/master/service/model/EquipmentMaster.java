@@ -33,7 +33,4 @@ public class EquipmentMaster implements Serializable {
 
     @Column(name="entry_date")
     private Date entryDate;
-
-    @Column(name="photographer_id")
-    private long photographerId;
 }

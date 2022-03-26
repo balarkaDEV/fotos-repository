@@ -27,10 +27,6 @@ public class EquipmentMasterBusiness {
         return equipmentMasterRepository.findById(id).orElseThrow(EquipmentMasterBusinessException::new);
     }
 
-    public List<EquipmentMaster> findByPhotographerId(long photogId){
-        return Optional.of(equipmentMasterRepository.findByPhotographerId(photogId)).orElseThrow(EquipmentMasterBusinessException::new);
-    }
-
     public EquipmentMaster save(EquipmentMaster equipmentMaster){
         EquipmentMasterValidator.isValidRequest(equipmentMaster);
         equipmentMaster.setEntryDate(new Date());
@@ -40,9 +36,4 @@ public class EquipmentMasterBusiness {
     public void deleteById(long id){
         equipmentMasterRepository.deleteById(id);
     }
-
-    /*public EquipmentMaster saveWithPhotographerInfo(EquipmentMasterRequest equipmentMasterRequest) {
-
-        return new EquipmentMaster();
-    }*/
 }

@@ -35,9 +35,9 @@ class EquipmentMasterServiceApplicationTests {
 	void testFindAll(){
 		when(equipmentMasterRepository.findAll()).thenReturn(
 				Stream.of(
-						new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date(),1),
-						new EquipmentMaster(2,"Nikon D750","Camera","Nikon",new Date(),1),
-						new EquipmentMaster(3,"Canon 5dMII","Camera","Canon",new Date(),2)
+						new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date()),
+						new EquipmentMaster(2,"Nikon D750","Camera","Nikon",new Date()),
+						new EquipmentMaster(3,"Canon 5dMII","Camera","Canon",new Date())
 				).collect(Collectors.toList()));
 
 		assertThat(equipmentMasterBusiness.findAll().size()).isEqualTo(3);
@@ -47,22 +47,10 @@ class EquipmentMasterServiceApplicationTests {
 	void testFindById(){
 		long id = 1;
 		when(equipmentMasterRepository.findById(id)).thenReturn(
-				Optional.of(new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date(),1)));
+				Optional.of(new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date())));
 
 		assertThat(equipmentMasterBusiness.findById((long)1).getName()).isEqualTo("Nikon D800");
 		assertThat(equipmentMasterBusiness.findById((long)1).getType()).isEqualTo("Camera");
 		assertThat(equipmentMasterBusiness.findById((long)1).getMake()).isEqualTo("Nikon");
-		assertThat(equipmentMasterBusiness.findById((long)1).getPhotographerId()).isEqualTo(1);
-	}
-
-	@Test
-	void testFindByPhotographerId(){
-		long photogId = 1;
-		when(equipmentMasterRepository.findByPhotographerId(photogId)).thenReturn(Stream.of(
-				new EquipmentMaster(1,"Nikon D800","Camera","Nikon",new Date(),1),
-				new EquipmentMaster(2,"Nikon D750","Camera","Nikon",new Date(),1)
-		).collect(Collectors.toList()));
-
-		assertThat(equipmentMasterBusiness.findByPhotographerId(1).size()).isEqualTo(2);
 	}
 }

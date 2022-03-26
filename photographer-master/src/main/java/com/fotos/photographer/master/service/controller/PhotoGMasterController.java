@@ -25,55 +25,28 @@ public class PhotoGMasterController {
     @Autowired
     private PhotoGMasterBusiness photoGMasterBusiness;
 
-    @GetMapping(value="/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PhotographerMaster>> getAllItem(){
+    @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PhotographerMaster>> findAll(){
         LOGGER.info("getAllItem started");
-        List<PhotographerMaster> list = photoGMasterBusiness.findAllRecords();
-
-        if (list.size() == 0)
-            throw new PhotoGMasterBusinessException("No Records Found");
-
-        LOGGER.info("getAllItem ended");
-        return new ResponseEntity<List<PhotographerMaster>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<PhotographerMaster>>(photoGMasterBusiness.findAllRecords(), HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<PhotographerMaster> getItemById(@PathVariable long id){
+    public ResponseEntity<PhotographerMaster> findById(@PathVariable long id){
         LOGGER.info("getItemById started");
-        return photoGMasterBusiness.findRecordById(id);
+        return new ResponseEntity<PhotographerMaster>(photoGMasterBusiness.findRecordById(id), HttpStatus.OK);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PhotographerMaster>> getItemsByQuery(@RequestParam Map<String, String> queryParams){
-        LOGGER.info("getItemByName started");
-
-        List<PhotographerMaster> list = photoGMasterBusiness.findRecordsByQuery(queryParams);
-
-        if (list.size() == 0)
-            throw new PhotoGMasterBusinessException("No Records Found");
-
-        LOGGER.info("getItemByName ended");
-        return new ResponseEntity<List<PhotographerMaster>>(list, HttpStatus.OK);
+    public ResponseEntity<List<PhotographerMaster>> findByQuery(@RequestParam Map<String, String> queryParams){
+        LOGGER.info("findItemsByQuery started");
+        return new ResponseEntity<List<PhotographerMaster>>(photoGMasterBusiness.findRecordsByQuery(queryParams), HttpStatus.OK);
     }
-
-    /*@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PhotographerMaster>> getItemsByCityStateCountry(@RequestParam String city, @RequestParam String state, @RequestParam String country){
-        LOGGER.info("{} : getItemsByCityStateCountry started", correlationId);
-        List<PhotographerMaster> list = photoGMasterBusiness.findRecordsByCityStateCountry(city,state,country);
-
-        if (list.size() == 0)
-            throw new PhotoGMasterBusinessException("No Records Found");
-
-        LOGGER.info("{} : getItemsByCityStateCountry ended", correlationId);
-        return new ResponseEntity<List<PhotographerMaster>>(list, HttpStatus.OK);
-    }*/
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PhotographerMaster> save(@RequestBody final PhotographerMaster photographerMaster){
         LOGGER.info("saveItem started");
-        PhotographerMaster response = photoGMasterBusiness.save(photographerMaster);
-        LOGGER.info("saveItem ended");
-        return new ResponseEntity<PhotographerMaster>(response, HttpStatus.OK);
+        return new ResponseEntity<PhotographerMaster>(photoGMasterBusiness.save(photographerMaster), HttpStatus.OK);
     }
 
     @DeleteMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

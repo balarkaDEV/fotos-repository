@@ -14,7 +14,10 @@ public class PhotoGMasterAdvice {
 
     @ExceptionHandler(PhotoGMasterBusinessException.class)
     public ResponseEntity<String> handleBusinessException(PhotoGMasterBusinessException exception){
-        return new ResponseEntity<String>(exception.getErrorMessage(), HttpStatus.NOT_FOUND);
+        if(exception.getErrorMessage() != null)
+            return new ResponseEntity<String>(exception.getErrorMessage(), HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<String>("Record not found", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)

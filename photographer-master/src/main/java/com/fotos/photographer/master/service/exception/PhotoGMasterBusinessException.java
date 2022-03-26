@@ -5,14 +5,12 @@ public class PhotoGMasterBusinessException extends RuntimeException {
     private String errorCode;
     private String errorMessage;
 
-    public PhotoGMasterBusinessException(String errorMessage) {
+    public PhotoGMasterBusinessException(){
         super();
-        this.errorMessage = errorMessage;
     }
 
-    public PhotoGMasterBusinessException(String errorCode, String errorMessage) {
+    public PhotoGMasterBusinessException(String errorMessage) {
         super();
-        this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
 

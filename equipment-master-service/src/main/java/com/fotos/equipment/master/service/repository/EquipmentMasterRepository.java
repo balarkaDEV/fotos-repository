@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public interface EquipmentMasterRepository extends JpaRepository<EquipmentMaster, Long> {
-
-    @Query(value = "from EquipmentMaster e where e.photographerId = :photogId")
-    public List<EquipmentMaster> findByPhotographerId(long photogId);
 }

@@ -1,0 +1,85 @@
+server:
+  port: 9010
+
+  #  ssl:
+  #    key-alias: book-master-service
+  #    key-store-type: JKS
+  #   key-password: password
+  #   key-store-password: password
+  #   key-store: classpath:book-master-service.jks
+
+spring:
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+        - id: photographer-master-service-find-route
+          uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
+          predicates:
+            - Path=/service/fotos/v1/photographer/**
+            - Method=GET
+          filters:
+            - name: Retry
+              args:
+                retries: 3
+                methods: GET
+                backoffs:
+                  firstBackoffs: 50ms
+                  maxBackoffs: 500ms
+            - name: CircuitBreaker
+              args:
+                name: photographerMasterService
+                fallbackUri: forward:/photographer-fallback
+
+        - id: photographer-master-service-save-route
+          uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
+          predicates:
+            - Path=/service/fotos/v1/photographer
+            - Method=POST
+
+        - id: photographer-master-service-delete-route
+          uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
+          predicates:
+            - Path=/service/fotos/v1/photographer/{id}
+            - Method=DELETE
+
+        - id: equipment-master-service-find-route
+          uri: ${EQUIPMENT_MASTER_SERVICE:http://localhost:8011}
+          predicates:
+            - Path=/service/fotos/v1/equipment/**
+            - Method=GET
+          filters:
+            - name: Retry
+              args:
+                retries: 3
+                methods: GET
+                backoffs:
+                  firstBackoffs: 50ms
+                  maxBackoffs: 500ms
+
+        - id: equipment-master-service-save-route
+          uri: ${EQUIPMENT_MASTER_SERVICE:http://localhost:8011}
+          predicates:
+            - Path=/service/fotos/v1/equipment
+            - Method=POST
+
+        - id: equipment-master-service-delete-route
+          uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8011}
+          predicates:
+            - Path=/service/fotos/v1/equipment/{id}
+            - Method=DELETE
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      photographerMasterService:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        registerHealthIndicator: true
+  timelimiter:
+    instances:
+      photographerMasterService:
+        timeoutDuration: 2s
+

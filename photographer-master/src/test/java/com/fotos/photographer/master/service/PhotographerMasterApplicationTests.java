@@ -32,9 +32,9 @@ class PhotographerMasterApplicationTests {
 	@Test
 	void testFindRecordById() {
 		long id = 1;
-		Optional<PhotographerMaster> item = photoGMasterBusiness.findRecordById(id);
-		if (item.isPresent())
-			assertThat(item.get().getId()).isEqualTo(id);
+		PhotographerMaster item = photoGMasterBusiness.findRecordById(id);
+		if (item != null)
+			assertThat(item.getId()).isEqualTo(id);
 	}
 
 	/*@Test

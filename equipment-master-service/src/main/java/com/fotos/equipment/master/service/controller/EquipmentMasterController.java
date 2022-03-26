@@ -25,26 +25,20 @@ public class EquipmentMasterController {
     @Autowired
     private EquipmentMasterBusiness equipmentMasterBusiness;
 
-    @GetMapping(value="/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EquipmentMaster>> getAllItem(){
+    @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EquipmentMaster>> findAll(){
         LOGGER.info("getAllItem started");
         return new ResponseEntity<List<EquipmentMaster>>(equipmentMasterBusiness.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EquipmentMaster> getItemById(@PathVariable long id){
+    public ResponseEntity<EquipmentMaster> findById(@PathVariable long id){
         LOGGER.info("getItemById started");
         return new ResponseEntity<EquipmentMaster>(equipmentMasterBusiness.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value="/photographer",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EquipmentMaster>> getItemByPhotoGId(@RequestParam long photogId){
-        LOGGER.info("getItemByPhotoGId started");
-        return new ResponseEntity<List<EquipmentMaster>>(equipmentMasterBusiness.findByPhotographerId(photogId), HttpStatus.OK);
-    }
-
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EquipmentMaster> saveItem(@RequestBody final EquipmentMaster equipmentMaster){
+    public ResponseEntity<EquipmentMaster> save(@RequestBody final EquipmentMaster equipmentMaster){
         LOGGER.info("saveItem started");
         return new ResponseEntity<EquipmentMaster>(equipmentMasterBusiness.save(equipmentMaster), HttpStatus.OK);
     }
