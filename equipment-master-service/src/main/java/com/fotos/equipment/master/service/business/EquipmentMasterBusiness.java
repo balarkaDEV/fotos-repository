@@ -4,7 +4,6 @@ import com.fotos.equipment.master.service.exception.EquipmentMasterBusinessExcep
 import com.fotos.equipment.master.service.model.EquipmentMaster;
 import com.fotos.equipment.master.service.model.EquipmentMasterRequest;
 import com.fotos.equipment.master.service.repository.EquipmentMasterRepository;
-import com.fotos.equipment.master.service.util.EquipmentMasterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,6 @@ public class EquipmentMasterBusiness {
     }
 
     public EquipmentMaster save(EquipmentMaster equipmentMaster){
-        EquipmentMasterValidator.isValidRequest(equipmentMaster);
         equipmentMaster.setEntryDate(new Date());
         return equipmentMasterRepository.save(equipmentMaster);
     }

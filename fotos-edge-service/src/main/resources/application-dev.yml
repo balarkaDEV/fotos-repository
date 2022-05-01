@@ -8,17 +8,26 @@ server:
   #   key-store-password: password
   #   key-store: classpath:book-master-service.jks
 
+custom:
+  service:
+    path:
+      photographer-master: /service/fotos/v1/photographer
+      equipment-master: /service/fotos/v1/equipment
+
 spring:
   cloud:
     gateway:
       enabled: true
+      default-filters:
+        - TokenRelay
       routes:
         - id: photographer-master-service-find-route
           uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
           predicates:
-            - Path=/service/fotos/v1/photographer/**
+            - Path=${custom.service.path.photographer-master}/**
             - Method=GET
           filters:
+            - RemoveRequestHeader=Cookie
             - name: Retry
               args:
                 retries: 3
@@ -34,19 +43,29 @@ spring:
         - id: photographer-master-service-save-route
           uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
           predicates:
-            - Path=/service/fotos/v1/photographer
+            - Path=${custom.service.path.photographer-master}
             - Method=POST
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: photographerMasterService
+                fallbackUri: forward:/photographer-fallback
 
         - id: photographer-master-service-delete-route
           uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8010}
           predicates:
-            - Path=/service/fotos/v1/photographer/{id}
+            - Path=${custom.service.path.photographer-master}/{id}
             - Method=DELETE
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: photographerMasterService
+                fallbackUri: forward:/photographer-fallback
 
         - id: equipment-master-service-find-route
           uri: ${EQUIPMENT_MASTER_SERVICE:http://localhost:8011}
           predicates:
-            - Path=/service/fotos/v1/equipment/**
+            - Path=${custom.service.path.equipment-master}/**
             - Method=GET
           filters:
             - name: Retry
@@ -56,18 +75,32 @@ spring:
                 backoffs:
                   firstBackoffs: 50ms
                   maxBackoffs: 500ms
+            - name: CircuitBreaker
+              args:
+                name: equipmentMasterService
+                fallbackUri: forward:/equipment-fallback
 
         - id: equipment-master-service-save-route
           uri: ${EQUIPMENT_MASTER_SERVICE:http://localhost:8011}
           predicates:
-            - Path=/service/fotos/v1/equipment
+            - Path=${custom.service.path.equipment-master}
             - Method=POST
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: equipmentMasterService
+                fallbackUri: forward:/equipment-fallback
 
         - id: equipment-master-service-delete-route
-          uri: ${PHOTOGRAPHER_MASTER_SERVICE:http://localhost:8011}
+          uri: ${EQUIPMENT_MASTER_SERVICE:http://localhost:8011}
           predicates:
-            - Path=/service/fotos/v1/equipment/{id}
+            - Path=${custom.service.path.equipment-master}/{id}
             - Method=DELETE
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: equipmentMasterService
+                fallbackUri: forward:/equipment-fallback
 
 resilience4j:
   circuitbreaker:
