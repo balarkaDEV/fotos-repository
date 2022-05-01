@@ -16,6 +16,6 @@ public class DemoShiftController {
 
     @GetMapping(value="/{msg}")
     public String getParamMsg(@PathVariable String msg){
-        return "This is demo param message with " + msg;
+        return "This is demo param message after change with " + msg;
     }
 }
